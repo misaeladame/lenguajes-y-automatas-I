@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package AppGrafica;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author terry
+ * @author Misael Adame
  */
 public class AnaLex7TokensApp extends javax.swing.JFrame {
+    Lexico anaLex = new Lexico();
 
     /**
      * Creates new form AnaLex7TokensApp
@@ -41,6 +39,11 @@ public class AnaLex7TokensApp extends javax.swing.JFrame {
         jLabel1.setText("PROGRAMA FUENTE");
 
         btnAnaLex.setText("ANÁLISIS LÉXICO");
+        btnAnaLex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnaLexActionPerformed(evt);
+            }
+        });
 
         txaProgFuente.setColumns(20);
         txaProgFuente.setRows(5);
@@ -111,6 +114,19 @@ public class AnaLex7TokensApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAnaLexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnaLexActionPerformed
+        anaLex.Inicia();
+        anaLex.Analiza(txaProgFuente.getText());
+        DefaultTableModel modelo = (DefaultTableModel) tblTokLex.getModel();
+        modelo.setRowCount(0);
+        for (int i = 0; i<anaLex.NoTokens();i++) {
+            Object[] o = new Object[2];
+            o[0] = anaLex.Tokens()[i];
+            o[1] = anaLex.Lexemas()[i];
+            modelo.addRow(o);
+        }
+    }//GEN-LAST:event_btnAnaLexActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -122,7 +138,7 @@ public class AnaLex7TokensApp extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
