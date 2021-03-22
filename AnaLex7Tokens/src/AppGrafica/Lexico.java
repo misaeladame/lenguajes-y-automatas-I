@@ -55,6 +55,36 @@ public class Lexico {
                     recAuto = true;
                 else 
                     noAuto++;
+            if(recAuto) {
+                _lexema = texto.substring(_iniToken, _i[0]);
+                switch (noAuto) {
+                    //------ Automata delim ----------------
+                    case 0: _tokens[_noTokens] = "delim";
+                    break;
+                    //------ Automata id -------------------
+                    case 1: _tokens[_noTokens] = "id";
+                    break;
+                    //------ Automata opAsig ---------------
+                    case 2: _tokens[_noTokens] = "opasig";
+                    break;
+                    //------ Automata oparit ---------------
+                    case 3: _tokens[_noTokens] = "oparit";
+                    break;
+                    //------ Automata num ------------------
+                    case 4: _tokens[_noTokens] = "num";
+                    break;
+                    //------ Automata sep ------------------
+                    case 5: _tokens[_noTokens] = "sep";
+                    break;
+                    //------ Automata termInst -------------
+                    case 6: _tokens[_noTokens] = "terminst";
+                    break;
+                }
+                _lexemas[_noTokens++] = _lexema;
+            }
+            else
+               _i[0]++; // RECUPERACION DEL ERROR
+            _iniToken = _i[0];
         }
     }
 }
