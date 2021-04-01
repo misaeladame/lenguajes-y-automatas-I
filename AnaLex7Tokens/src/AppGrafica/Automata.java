@@ -56,7 +56,7 @@ public class Automata {
                     break;
                 case 1:
                     c = SigCar();
-                    if (c != ' ' && c != '\t' && c == '\n' 
+                    if (c != ' ' && c != '\t' && c != '\n' 
                             && c != '\r')
                         _edoAct = 2;
                     break;
@@ -81,9 +81,92 @@ public class Automata {
                 case 5:
                     i[0]--;
                     return true;
-                    
-                    
-            }
+                // opasig ----------------------------------------
+                case 6:
+                    c = SigCar();
+                    if (c == '=')
+                        _edoAct = 8;
+                    else if (c == '+' || c == '-' || c == '*' || c == '/')
+                        _edoAct = 7;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 7:
+                    c = SigCar();
+                    if (c == '=')
+                        _edoAct = 8;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 8:
+                    return true;
+                // oparit ------------------------------------------
+                case 9:
+                    c = SigCar();
+                    if (c == '+' || c == '-' || c == '*' || c == '/')
+                        _edoAct = 10;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 10:
+                    return true;
+                // num ----------------------------------------------
+                case 11: 
+                    c = SigCar();
+                    if (Character.isDigit(c))
+                        _edoAct = 12;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 12:
+                    c = SigCar();
+                    if (! Character.isDigit(c))
+                        _edoAct = 13;
+                    break;
+                case 13:
+                    i[0]--;
+                    return true;
+                // sep -----------------------------------------------
+                case 14:
+                    c = SigCar();
+                    if (c == '(' || c == ')')
+                        _edoAct = 15;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 15:
+                    return true;
+                // terminst ------------------------------------------
+                case 16: 
+                    c = SigCar();
+                    if (c == ';')
+                        _edoAct = 17;
+                    else {
+                        i[0] = iniToken;
+                        return false;
+                    }
+                    break;
+                case 17:
+                    return true;
+            } // fIN DEL WHILE, SWITCH Y DEL BLOQUE 2
+        // BLOQUE 3
+        switch (_edoAct) {
+            case 2:
+            case 5:
+            case 13:
+                i[0]--;
+                return true;
+        }
         return false;
     }
 }

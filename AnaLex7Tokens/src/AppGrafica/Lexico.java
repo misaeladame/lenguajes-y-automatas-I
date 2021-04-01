@@ -79,7 +79,7 @@ public class Lexico {
                     //------ Automata termInst -------------
                     case 6: _tokens[_noTokens] = "terminst";
                     break;
-                }
+                } // FIN DEL SWITCH
                 _lexemas[_noTokens++] = _lexema;
             }
             else
