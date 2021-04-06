@@ -1,5 +1,6 @@
 package AppGrafica;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -17,5 +18,18 @@ public class Automata {
         afd[4] = Pattern.compile("[0-9]+"); // num
         afd[5] = Pattern.compile("\\(|\\)"); // sep
         afd[6] = Pattern.compile("\\;"); // terminstr
+    }
+    
+    public boolean Reconoce (String texto, int iniToken, int[] i, int noAuto ) {
+        Matcher m = afd[noAuto].matcher(texto);
+        if (m.find(iniToken))
+            if (m.start()==iniToken) {
+                i[0] = m.end();
+                return true;
+            }
+            else 
+                return false;
+        else
+            return false;
     }
 }
