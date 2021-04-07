@@ -74,22 +74,22 @@ public class Lexico {
                     case 1: if (EsId())
                                 _tokens[_noTokens] = "id";
                             else
-                                _tokens[_noTokens] = "palres";
+                                _tokens[_noTokens] = _lexema;
                             break;
                     //------ Automata opAsig ---------------
-                    case 2: _tokens[_noTokens] = "opasig";
+                    case 2: _tokens[_noTokens] = _lexema;
                     break;
                     //------ Automata oparit ---------------
-                    case 3: _tokens[_noTokens] = "oparit";
+                    case 3: _tokens[_noTokens] = _lexema;
                     break;
                     //------ Automata num ------------------
                     case 4: _tokens[_noTokens] = "num";
                     break;
                     //------ Automata sep ------------------
-                    case 5: _tokens[_noTokens] = "sep";
+                    case 5: _tokens[_noTokens] = _lexema;
                     break;
                     //------ Automata termInst -------------
-                    case 6: _tokens[_noTokens] = "terminst";
+                    case 6: _tokens[_noTokens] = _lexema;
                     break;
                 } // FIN DEL SWITCH
                 if (noAuto > 0)
