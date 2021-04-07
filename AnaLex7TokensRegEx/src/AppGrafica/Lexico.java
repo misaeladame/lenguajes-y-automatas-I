@@ -59,7 +59,7 @@ public class Lexico {
                 _lexema = texto.substring(_iniToken, _i[0]);
                 switch (noAuto) {
                     //------ Automata delim ----------------
-                    case 0: _tokens[_noTokens] = "delim";
+                    case 0: // _tokens[_noTokens] = "delim";
                     break;
                     //------ Automata id -------------------
                     case 1: _tokens[_noTokens] = "id";
@@ -80,7 +80,8 @@ public class Lexico {
                     case 6: _tokens[_noTokens] = "terminst";
                     break;
                 } // FIN DEL SWITCH
-                _lexemas[_noTokens++] = _lexema;
+                if (noAuto > 0)
+                    _lexemas[_noTokens++] = _lexema;
             }
             else
                _i[0]++; // RECUPERACION DEL ERROR
