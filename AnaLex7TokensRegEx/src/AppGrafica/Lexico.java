@@ -38,6 +38,15 @@ public class Lexico {
         _noTokens = 0;
     }
     
+    private boolean EsId() {
+        String[] palRes = {"if", "else", "while", "public", "break", "int",
+                           "final", "switch", "double", "for", "int", "String"};
+        for(int i=0; i < palRes.length; i++)
+            if(_lexema.equals(palRes[i]))
+                return false;
+        return true;
+    }
+    
     public void Inicia() {
         _i[0] = 0;
         _iniToken = 0;
@@ -62,8 +71,11 @@ public class Lexico {
                     case 0: // _tokens[_noTokens] = "delim";
                     break;
                     //------ Automata id -------------------
-                    case 1: _tokens[_noTokens] = "id";
-                    break;
+                    case 1: if (EsId())
+                                _tokens[_noTokens] = "id";
+                            else
+                                _tokens[_noTokens] = "palres";
+                            break;
                     //------ Automata opAsig ---------------
                     case 2: _tokens[_noTokens] = "opasig";
                     break;
