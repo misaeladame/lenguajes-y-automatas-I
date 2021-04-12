@@ -6,7 +6,7 @@ package AppGrafica;
  */
 public class Lexico {
     
-    final int TOKREC = 7;
+    final int TOKREC = 8;
     final int MAXTOKENS = 500;
     String[] _lexemas;
     String[] _tokens;
@@ -78,19 +78,24 @@ public class Lexico {
                             break;
                     //------ Automata opAsig ---------------
                     case 2: _tokens[_noTokens] = _lexema;
-                    break;
+                            break;
                     //------ Automata oparit ---------------
                     case 3: _tokens[_noTokens] = _lexema;
-                    break;
+                            break;
                     //------ Automata num ------------------
-                    case 4: _tokens[_noTokens] = "num";
-                    break;
+                    case 7: _tokens[_noTokens] = "num";  // entero
+                            break;
+                    
+                    case 4: _tokens[_noTokens] = "num";  // real  234.980
+                            break;
                     //------ Automata sep ------------------
                     case 5: _tokens[_noTokens] = _lexema;
-                    break;
+                            break;
                     //------ Automata termInst -------------
                     case 6: _tokens[_noTokens] = _lexema;
-                    break;
+                            break;
+                   
+                    
                 } // FIN DEL SWITCH
                 if (noAuto > 0)
                     _lexemas[_noTokens++] = _lexema;
