@@ -6,7 +6,7 @@ package AppGrafica;
  */
 public class Lexico {
     
-    final int TOKREC = 8;
+    final int TOKREC = 9;
     final int MAXTOKENS = 500;
     String[] _lexemas;
     String[] _tokens;
@@ -83,10 +83,11 @@ public class Lexico {
                     case 3: _tokens[_noTokens] = _lexema;
                             break;
                     //------ Automata num ------------------
-                    case 7: _tokens[_noTokens] = "num";  // entero
-                            break;
-                    
                     case 4: _tokens[_noTokens] = "num";  // real  234.980
+                            break;            
+                    case 7: _tokens[_noTokens] = "num";  // real  100.
+                            break;       
+                    case 8: _tokens[_noTokens] = "num";  // entero
                             break;
                     //------ Automata sep ------------------
                     case 5: _tokens[_noTokens] = _lexema;
