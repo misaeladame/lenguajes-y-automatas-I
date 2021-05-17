@@ -16,6 +16,11 @@ public class Lexico {
     int _iniToken;
     Automata oAFD;
     
+    public void Anade(String tok, String lex) {
+        _tokens[_noTokens] = tok;
+        _lexemas[_noTokens++] = lex;
+    }
+    
     public int NoTokens() {
         return _noTokens;
     }
