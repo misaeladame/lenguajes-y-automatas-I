@@ -2,6 +2,8 @@ package AppGrafica;
 
 public class SintDescNRP {
     
+    final int NODIS = 5000;
+    
     private Pila _pila;
     private String[] _vts = { "", "id", "=", ";", "+", "-", "*", "/", "num", "(", ")", "$" };
     private String[] _vns = { "", "A", "E", "E'", "T", "T'", "F" };
@@ -43,6 +45,8 @@ public class SintDescNRP {
     private int _noVns;
     private int _noProd;
     private int _noEnt;
+    private int[] _di;
+    private int _noDis;
     
     public SintDescNRP () {
         _pila = new Pila();
@@ -50,11 +54,19 @@ public class SintDescNRP {
         _noVns = _vns.length;
         _noProd = 12;
         _noEnt = 20;
+        _di = new int [NODIS];
+        _noDis = 0;
+    }
+    
+    public void Inicia () {
+        _pila.Inicia();
+        _noDis = 0;
     }
     
     public int Analiza(Lexico oAnaLex) {
         SimbGram x;
         String a;
+        int noProd;
         _pila.Inicia();
         _pila.Push(new SimbGram("$"));
         _pila.Push(new SimbGram(_vns[1]));
@@ -63,17 +75,23 @@ public class SintDescNRP {
         do {
             x = _pila.Tope();
             a = oAnaLex.Tokens()[ae];
-            if ( EsTerminal(x.Elem()))   // es token
+            if ( EsTerminal(x.Elem()))   // x es token
                 if ( x.Elem().equals(a)) {
                     _pila.Pop();
                     ae++;
                 }
                 else
                     return 1;
-            else      // variable sintáctica o simbolo no terminal
-                
-                
+            else      // x es variable sintáctica o simbolo no terminal
+                if ((noProd = BusqProd(x.Elem(), a)) >= 0) {
+                    _pila.Pop();
+                    MeterYes (noProd);
+                    _di[_noDis++] = noProd;
+                } 
+                else
+                    return 2;  
         } while (!x.Elem().equals("$"));
+        return 0;   // EXITO EN EL RECONOCIMIENTO DE LA SENTENCIA
     }
     
     public boolean EsTerminal(String x) {
@@ -83,5 +101,32 @@ public class SintDescNRP {
         return false;           
     }
     
+    public int BusqProd ( String x, String a ) {
+        int indiceX = 0;
+        for ( int i = 1; i < _noVns; i++ )
+            if ( _vns[i].equals(x)) {
+                indiceX = i;
+                break;
+            }
+        int indiceA = 0;
+        for ( int i = 0; i < _noVts; i++ )
+            if ( _vts[i].equals(a)) {
+                indiceA = i;
+                break;
+            }
+        for ( int i = 0; i < _noEnt; i++)
+            if ( indiceX == _m[i][0] && indiceA == _m[i][1])
+                return _m[i][2];
+        return -1;
+    }
     
+    public void MeterYes ( int noProd ) {
+        int noYes = _prod[noProd][1];
+        for ( int i = 1; i <= noYes; i++ )
+            if ( _prod[noProd][noYes + 2 - i] < 0)
+                _pila.Push(new SimbGram(_vts[-_prod[noProd][noYes + 2 - i]]));
+            else
+                _pila.Push(new SimbGram(_vns[_prod[noProd][noYes + 2 - i]]));
+                
+    }
 }
