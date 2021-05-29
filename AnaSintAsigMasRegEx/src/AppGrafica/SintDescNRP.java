@@ -134,6 +134,18 @@ public class SintDescNRP {
                 
     }
     
+    public String ProdStr(int noProd) {
+        String aux = _vns[_prod[noProd][0]] + " -> ";
+        int noYes = _prod[noProd][1];
+        for(int i = 1; i <= noYes; i++)
+            if(_prod[noProd][i+1]<0)
+                aux += _vts[-_prod[noProd][i+1]]+" ";
+            else
+                aux += _vns[_prod[noProd][i+1]]+" ";
+        aux += noYes==0 ? "empty" : "";
+        return aux;
+    }
+    
     public String[] Vts() {
         return _vts;
     }
