@@ -141,7 +141,7 @@ public class SintAscSLR {
                                     oNuevoItem.Agregar(nP, pP + 1);
                                     marcaItems[k] = true;
                                 }
-                            } catch  {
+                            } catch (Exception e) {
                                 continue;
                             }
                         }
@@ -235,7 +235,7 @@ public class SintAscSLR {
             int posPto = _c[i].PosPto(j);
             if (noProd != -1) {
                 if (posPto != _prod[noProd][1]) {
-                    int indSim = _prod[noProd, posPto + 2];
+                    int indSim = _prod[noProd] [posPto + 2];
                         if (indSim < 0) {
                         int edoTrans = -1;
                         for (int k = 0; k < _noGoTos; k++) {
@@ -262,7 +262,7 @@ public class SintAscSLR {
             String s = _pila.Tope().Elem();
             String a = oAnalex.Tokens()[ae];
             String accion = Accion(s, a);
-            switch (accion[0]) {
+            switch (accion.charAt(0)) {
                 case 's':
                     _pila.Push(new SimbGram(a));
                     _pila.Push(new SimbGram(accion.substring(1)));  // caso en que la accion es un cambio
@@ -287,7 +287,7 @@ public class SintAscSLR {
         int tipo = -1, no = -1;
         int edo = Integer.parseInt(s);
         int inda = 0;
-        bool enc = false;
+        boolean enc = false;
         for (int i = 1; i < _vts.length; i++) {
             if (_vts[i].equals(a)) {
                 inda = i;
@@ -306,9 +306,9 @@ public class SintAscSLR {
         } else {
             switch (tipo) {
                 case 0:
-                    return "s" + no.toString();
+                    return "s" + Integer.toString(no);
                 case 1:
-                    return "r" + no.toString();
+                    return "r" + Integer.toString(no);
                 case 2:
                     return "acc";
                 default:
@@ -334,7 +334,7 @@ public class SintAscSLR {
         _pila.Push(new SimbGram(_vns[_prod[noProd][0]]));
         for (int i = 0; i < _noGoTos; i++) {
             if (sPrima == _goTo[i][0] && _prod[noProd][0] == _goTo[i][1]) {
-                _pila.Push(new SimbGram(_goTo[i][2].toString()));
+                _pila.Push(new SimbGram(Integer.toString(_goTo[i][2])));
                 break;
             }
         }
