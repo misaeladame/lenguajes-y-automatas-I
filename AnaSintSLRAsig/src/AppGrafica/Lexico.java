@@ -28,6 +28,11 @@ public class Lexico {
         return _lexemas;
     }
     
+    public void Anade(String tok, String lex) {
+        _tokens[_noTokens] = tok;
+        _lexemas[_noTokens++] = lex;
+    }
+    
     // Constructor por defecto
     public Lexico() {
         _lexemas = new String[MAXTOKENS];
