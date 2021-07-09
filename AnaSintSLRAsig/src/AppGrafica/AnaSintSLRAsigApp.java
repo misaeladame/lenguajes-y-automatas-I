@@ -122,17 +122,20 @@ public class AnaSintSLRAsigApp extends javax.swing.JFrame {
 
     private void btnAnaSintSLRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnaSintSLRActionPerformed
         anaLex.Inicia();
-        anaLex.Analiza(txaProgFuente.getText());
-        DefaultTableModel modelo = (DefaultTableModel) tblTokLex.getModel();
-        modelo.setRowCount(0);
-        for (int i = 0; i<anaLex.NoTokens();i++) {
-            Object[] o = new Object[2];
-            o[0] = anaLex.Tokens()[i];
-            o[1] = anaLex.Lexemas()[i];
-            modelo.addRow(o);
+        if (anaLex.Analiza(txaProgFuente.getText())) {
+            DefaultTableModel modelo = (DefaultTableModel) tblTokLex.getModel();
+            modelo.setRowCount(0);
+            for (int i = 0; i<anaLex.NoTokens();i++) {
+                Object[] o = new Object[2];
+                o[0] = anaLex.Tokens()[i];
+                o[1] = anaLex.Lexemas()[i];
+                modelo.addRow(o);
+            }
+            anaSint.Inicia();
+            lblResul.setText(anaSint.Analiza(anaLex)==0? "ANÁLISIS EXITOSO ..." : "ERROR DE SINTÁXIS ...");
         }
-        anaSint.Inicia();
-        lblResul.setText(anaSint.Analiza(anaLex)==0? "ANÁLISIS EXITOSO ..." : "ERROR DE SINTÁXIS ...");
+        else
+            lblResul.setText("ERROR LEXICO...");
             
     }//GEN-LAST:event_btnAnaSintSLRActionPerformed
 

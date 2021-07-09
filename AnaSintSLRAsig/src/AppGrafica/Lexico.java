@@ -58,7 +58,7 @@ public class Lexico {
         _noTokens = 0;
     }
     
-    public void Analiza(String texto) {
+    public boolean Analiza(String texto) {
         boolean recAuto;
         int noAuto;
         while(_i[0] < texto.length()) {
@@ -107,8 +107,9 @@ public class Lexico {
                     _lexemas[_noTokens++] = _lexema;
             }
             else
-               _i[0]++; // RECUPERACION DEL ERROR
+               return false; // RECUPERACION DEL ERROR
             _iniToken = _i[0];
         }
+        return true; // ANÁLISIS LEXICO EXITOSO
     }
 }
