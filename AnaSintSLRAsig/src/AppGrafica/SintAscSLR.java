@@ -7,7 +7,7 @@ package AppGrafica;
 
 /**
  *
- * @author terry
+ * @author Misael Adame
  */
 public class SintAscSLR {
     
